@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>心理协会 · 活动展示</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+  
+  :root {
+    --bg: #0f0f13;
+    --surface: #1a1a24;
+    --surface2: #22222e;
+    --border: rgba(255,255,255,0.06);
+    --text: #e8e6f0;
+    --text-secondary: #8b8a97;
+    --accent: #7c6aef;
+    --accent-glow: rgba(124,106,239,0.15);
+    --accent2: #e06b8c;
+    --radius: 16px;
+    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  html { scroll-behavior: smooth; }
+  
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans SC', 'Microsoft YaHei', 'PingFang SC', system-ui, sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  
+  /* ===== Hero Header ===== */
+  .hero {
+    position: relative;
+    padding: 80px 40px 60px;
+    text-align: center;
+    overflow: hidden;
+    background: radial-gradient(ellipse at 50% 0%, rgba(124,106,239,0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 50%, rgba(224,107,140,0.08) 0%, transparent 50%);
+  }
+  
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 40%, rgba(124,106,239,0.04) 0%, transparent 40%),
+                radial-gradient(circle at 70% 60%, rgba(224,107,140,0.03) 0%, transparent 40%);
+    animation: float 20s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(2%, -1%) rotate(1deg); }
+    66% { transform: translate(-1%, 1%) rotate(-1deg); }
+  }
+  
+  .hero-content { position: relative; z-index: 1; }
+  
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #e8e6f0 0%, #7c6aef 50%, #e06b8c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+  }
+  
+  .hero .subtitle {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    max-width: 500px;
+    margin: 0 auto 24px;
+  }
+  
+  .stats {
+    display: inline-flex;
+    gap: 24px;
+    padding: 12px 28px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    backdrop-filter: blur(10px);
+  }
+  
+  .stat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.875rem;
+  }
+  
+  .stat-num {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--accent);
+  }
+  
+  .stat-label { color: var(--text-secondary); }
+  
+  /* ===== Navigation ===== */
+  .nav-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 12px 40px;
+    background: rgba(15,15,19,0.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  
+  .nav-bar::-webkit-scrollbar { display: none; }
+  
+  .nav-links {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: nowrap;
+  }
+  
+  .nav-link {
+    padding: 8px 16px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-radius: 8px;
+    white-space: nowrap;
+    transition: var(--transition);
+    border: 1px solid transparent;
+  }
+  
+  .nav-link:hover {
+    color: var(--text);
+    background: var(--surface);
+    border-color: var(--border);
+  }
+  
+  .nav-link.active {
+    color: var(--accent);
+    background: var(--accent-glow);
+    border-color: rgba(124,106,239,0.3);
+  }
+  
+  /* ===== Main Content ===== */
+  main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 28px 80px;
+  }
+  
+  /* ===== Section ===== */
+  .section {
+    margin-bottom: 64px;
+    scroll-margin-top: 80px;
+  }
+  
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  
+  .section-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    flex-shrink: 0;
+  }
+  
+  .section-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  
+  .section-count {
+    margin-left: auto;
+    padding: 4px 12px;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    background: var(--surface);
+    border-radius: 999px;
+    border: 1px solid var(--border);
+  }
+  
+  /* ===== Gallery Grid ===== */
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  
+  .card {
+    position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: var(--transition);
+    group: true;
+  }
+  
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(124,106,239,0.3);
+    box-shadow: 0 20px 40px -12px rgba(0,0,0,0.4),
+                0 0 0 1px rgba(124,106,239,0.1);
+  }
+  
+  .card-img-wrap {
+    position: relative;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+  }
+  
+  .card-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .card:hover .card-img-wrap img {
+    transform: scale(1.05);
+  }
+  
+  .card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity var(--transition);
+    display: flex;
+    align-items: flex-end;
+    padding: 16px;
+  }
+  
+  .card:hover .card-overlay { opacity: 1; }
+  
+  .card-overlay-text {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.9);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .card-info {
+    padding: 14px 16px;
+  }
+  
+  .card-name {
+    font-size: 0.85rem;
+    font-weight: 500;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .card-meta {
+    margin-top: 6px;
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+  }
+  
+  /* ===== Lightbox ===== */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0,0,0,0.95);
+    backdrop-filter: blur(20px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .lightbox.active {
+    display: flex;
+    opacity: 1;
+  }
+  
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+  }
+  
+  .lightbox-close {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    width: 44px;
+    height: 44px;
+    border: none;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .lightbox-close:hover { background: rgba(255,255,255,0.2); }
+  
+  .lightbox-caption {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: rgba(255,255,255,0.8);
+    font-size: 0.9rem;
+    max-width: 80vw;
+  }
+  
+  .lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border: none;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .lightbox-nav:hover { background: rgba(255,255,255,0.2); }
+  .lightbox-prev { left: 24px; }
+  .lightbox-next { right: 24px; }
+  
+  /* ===== Footer ===== */
+  footer {
+    padding: 40px 28px;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    border-top: 1px solid var(--border);
+  }
+  
+  /* ===== Responsive ===== */
+  @media (max-width: 768px) {
+    .hero { padding: 60px 20px 40px; }
+    .nav-bar { padding: 10px 16px; }
+    .nav-links { justify-content: flex-start; }
+    main { padding: 24px 16px 60px; }
+    .gallery { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
+    .card-info { padding: 10px 12px; }
+    .lightbox { padding: 20px; }
+  }
+  
+  /* ===== Animations ===== */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.6s ease forwards;
+  }
+  
+  @keyframes fadeIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .section:nth-child(1) { animation-delay: 0.1s; }
+  .section:nth-child(2) { animation-delay: 0.15s; }
+  .section:nth-child(3) { animation-delay: 0.2s; }
+  .section:nth-child(4) { animation-delay: 0.25s; }
+  .section:nth-child(5) { animation-delay: 0.3s; }
+  .section:nth-child(6) { animation-delay: 0.35s; }
+  .section:nth-child(7) { animation-delay: 0.4s; }
+
+    .about { max-width: 1120px; margin: 46px auto 0; padding: 0 22px; }
+    .about-card { background: rgba(255,255,255,.72); border: 1px solid rgba(23,63,92,.10);
+      border-radius: 20px; padding: 26px 28px; box-shadow: 0 14px 40px rgba(87,58,28,.07); }
+    .about-title { font-size: 20px; font-weight: 800; color: #173f5c; margin: 0 0 12px; letter-spacing: .04em; }
+    .about-text { color: #4d554e; line-height: 1.95; font-size: 15px; margin: 0 0 10px; }
+    .about-tags { margin-top: 6px; }
+    .about-tag { display: inline-block; margin: 6px 8px 0 0; padding: 5px 14px; border-radius: 999px;
+      background: rgba(239,169,44,.14); color: #8a6412; font-size: 13px; font-weight: 700; }
+    .today { max-width: 1120px; margin: 30px auto 0; padding: 0 22px; }
+    .today-card { background: linear-gradient(135deg, #173f5c, #2c6a8e); color: #fff8ea;
+      border-radius: 20px; padding: 26px 30px; box-shadow: 0 18px 44px rgba(23,63,92,.22); }
+    .today-tag { display: inline-block; padding: 4px 12px; border-radius: 999px;
+      background: rgba(255,255,255,.16); font-size: 12px; letter-spacing: .16em; font-weight: 700; }
+    .today-title { font-size: 24px; font-weight: 800; margin: 12px 0 8px; }
+    .today-text { color: rgba(255,248,234,.86); line-height: 1.9; font-size: 15px; margin: 0; }
+    .today-line { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 10px 22px;
+      font-size: 14px; font-weight: 700; color: #ffd98a; }
+    .sec-desc { max-width: 1120px; margin: -6px auto 22px; padding: 0 22px;
+      color: #56655f; line-height: 1.95; font-size: 14.5px; }
+
+  </style>
+</head>
+<body>
+
+<!-- Hero Header -->
+<header class="hero">
+  <div class="hero-content">
+    <h1>心理协会 · 活动展示</h1>
+    <p class="subtitle">以心相聚，与暖同行 —— 记录每一次温暖的相聚</p>
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-num">61</span>
+        <span class="stat-label">张照片</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">7</span>
+        <span class="stat-label">个活动</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">2016</span>
+        <span class="stat-label">年成立</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Navigation -->
+<nav class="nav-bar">
+  <div class="nav-links">
+    <a class="nav-link" href="#section-1">🌾 三下乡</a>
+    <a class="nav-link" href="#section-2">🔮 寻心灵之宝</a>
+    <a class="nav-link" href="#section-3">🏃 奔跑吧云大</a>
+    <a class="nav-link" href="#section-4">📚 读书会（读书沙龙）</a>
+    <a class="nav-link" href="#section-5">🎀 防艾宣传</a>
+    <a class="nav-link" href="#section-6">🎯 立项活动</a>
+    <a class="nav-link" href="#section-7">🎭 大型活动</a>
+  </div>
+</nav>
+<!-- 关于我们 -->
+<section class="about">
+  <div class="about-card">
+    <p class="about-title">关于我们 · 云南大学心理协会</p>
+    <p class="about-text">心理协会成立于 <b>2016 年 5 月 23 日</b>，在云南大学学生工作部心理健康（教育）咨询服务中心的指导下成立，
+      由校团委与中心共同管理，是由全校有志于心理健康服务的青年学生组成的校级学生社团，现有会员 772 人。</p>
+    <p class="about-text">协会面向全校同学开展心理健康知识宣传与教育活动：共读分享、户外团辅、情绪解压、艺术创作、主题摆点……
+      我们希望为每一位同学提供一个平等、安全、温暖的环境——在团体里学会相处，也学会照顾自己。</p>
+    <div class="about-tags">
+      <span class="about-tag">心理健康</span>
+      <span class="about-tag">朋辈陪伴</span>
+      <span class="about-tag">心灵疗愈</span>
+      <span class="about-tag">助力成长</span>
+    </div>
+  </div>
+</section>
+
+<!-- 今日活动 -->
+<section class="today">
+  <div class="today-card">
+    <span class="today-tag">TODAY · 2026.10.10</span>
+    <p class="today-title">「与心同行」世界精神卫生日主题摆点</p>
+    <p class="today-text">10 月 10 日是世界精神卫生日。今年我们的主题是「悦纳情绪，心有阳光」——
+      把心理服务从咨询室搬到同学身边：测评、心愿卡、解压小游戏、解忧信箱，路过就能参与。</p>
+    <div class="today-line">
+      <span>时间：10:00—17:00</span>
+      <span>地点：楠苑食堂门口 · 梓苑食堂门口</span>
+      <span>主办：云南大学学生工作部心理健康教育咨询中心</span>
+      <span>承办：云南大学心理协会</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- Gallery Sections -->
+<main>
+  <section class="section fade-in" id="section-1">
+    <div class="section-header">
+      <div class="section-icon">🌾</div>
+      <h2 class="section-title">三下乡</h2>
+      <span class="section-count">7 张</span>
+    </div>
+    <p class="sec-desc">暑期「三下乡」社会实践：走进留守儿童之家，开展 12355 宣讲、「我的情绪我做主」朋辈辅导、手工漆扇、绘画解压，以及课业辅导与心理访谈——把心理服务带到乡村课堂，也把温暖留在了那里。</p>
+    <p class="sec-desc">以户外寻宝串联的心理体验活动：同学们组队完成线索任务，最后一起展示亲手绘制的曼陀罗作品，在行走、协作与创作中认识彼此。</p>
+    <p class="sec-desc">「奔跑吧云大」户外团体活动现场：把运动与团队任务结合起来，让同学们在奔跑与配合中释放压力、拉近距离。</p>
+    <p class="sec-desc">「疗愈之旅 · 心理学读书沙龙」是协会的常规共读活动：参与者提前读完指定书目，现场围绕关键主题分享与讨论。往期书目包括《被讨厌的勇气》（2023）、《蛤蟆先生去看心理医生》（2024）、《早安，怪物》（2025）。</p>
+    <p class="sec-desc">「不惧艾 · 守护艾」艺术作品创意大赛：以绘画、手写信、短视频三种形式传播防艾知识。线下在校园摆摊宣讲（现场竞答、防艾拼图、留言绘画），线上同步征集作品，让科普变得可参与、可表达。</p>
+    <p class="sec-desc">由校团委社团部立项支持的常态化项目：与光同行系列、防艾主题宣传、心理学读书沙龙、心理素质拓展等，一年一年接着做，把「常态化」三个字做成了真的。</p>
+    <p class="sec-desc">大型活动：每年 5·25 心理健康月的闭幕晚会（唱歌、舞蹈、情景剧、配音秀、魔术等节目轮番上场），以及校园心理情景剧大赛——用「创作—表演—观演—反思」的完整流程，把心理困境演出来，也把出口找出来。</p>
+    <div class="gallery">
+      <figure class="card" onclick="openLightbox('01_%E4%B8%89%E4%B8%8B%E4%B9%A1/%E4%B8%89%E4%B8%8B%E4%B9%A1_12355%E5%AE%A3%E8%AE%B2%E6%B4%BB%E5%8A%A8.jpg', '三下乡_12355宣讲活动')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="01_%E4%B8%89%E4%B8%8B%E4%B9%A1/%E4%B8%89%E4%B8%8B%E4%B9%A1_12355%E5%AE%A3%E8%AE%B2%E6%B4%BB%E5%8A%A8.jpg" alt="三下乡_12355宣讲活动">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">三下乡_12355宣讲活动</span>
+          <div class="card-meta">1920×1280 · 0.2MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('01_%E4%B8%89%E4%B8%8B%E4%B9%A1/%E4%B8%89%E4%B8%8B%E4%B9%A1_%E5%9B%A2%E9%98%9F%E4%B8%8E%E7%95%99%E5%AE%88%E5%84%BF%E7%AB%A5%E4%B9%8B%E5%AE%B6%E5%B8%88%E7%94%9F%E5%90%88%E5%BD%B1.jpg', '三下乡_团队与留守儿童之家师生合影')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="01_%E4%B8%89%E4%B8%8B%E4%B9%A1/%E4%B8%89%E4%B8%8B%E4%B9%A1_%E5%9B%A2%E9%98%9F%E4%B8%8E%E7%95%99%E5%AE%88%E5%84%BF%E7%AB%A5%E4%B9%8B%E5%AE%B6%E5%B8%88%E7%94%9F%E5%90%88%E5%BD%B1.jpg" alt="三下乡_团队与留守儿童之家师生合影">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">三下乡_团队与留守儿童之家师生合影</span>
+          <div class="card-meta">1920×1280 · 0.2MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('01_%E4%B8%89%E4%B8%8B%E4%B9%A1/%E4%B8%89%E4%B8%8B%E4%B9%A1_%E6%88%91%E7%9A%84%E6%83%85%E7%BB%AA%E6%88%91%E5%81%9A%E4%B8%BB%E6%9C%8B%E8%BE%88%E8%BE%85%E5%AF%BC.jpg', '三下乡_我的情绪我做主朋辈辅导')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="01_%E4%B8%89%E4%B8%8B%E4%B9%A1/%E4%B8%89%E4%B8%8B%E4%B9%A1_%E6%88%91%E7%9A%84%E6%83%85%E7%BB%AA%E6%88%91%E5%81%9A%E4%B8%BB%E6%9C%8B%E8%BE%88%E8%BE%85%E5%AF%BC.jpg" alt="三下乡_我的情绪我做主朋辈辅导">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">三下乡_我的情绪我做主朋辈辅导</span>
+          <div class="card-meta">1920×1280 · 0.2MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('01_%E4%B8%89%E4%B8%8B%E4%B9%A1/%E4%B8%89%E4%B8%8B%E4%B9%A1_%E6%89%8B%E5%B7%A5%E5%88%B6%E4%BD%9C%E6%BC%86%E6%89%87.jpg', '三下乡_手工制作漆扇')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="01_%E4%B8%89%E4%B8%8B%E4%B9%A1/%E4%B8%89%E4%B8%8B%E4%B9%A1_%E6%89%8B%E5%B7%A5%E5%88%B6%E4%BD%9C%E6%BC%86%E6%89%87.jpg" alt="三下乡_手工制作漆扇">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">三下乡_手工制作漆扇</span>
+          <div class="card-meta">1920×1280 · 0.2MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('01_%E4%B8%89%E4%B8%8B%E4%B9%A1/%E4%B8%89%E4%B8%8B%E4%B9%A1_%E7%BB%98%E7%94%BB%E8%A7%A3%E5%8E%8B%E6%B4%BB%E5%8A%A8.jpg', '三下乡_绘画解压活动')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="01_%E4%B8%89%E4%B8%8B%E4%B9%A1/%E4%B8%89%E4%B8%8B%E4%B9%A1_%E7%BB%98%E7%94%BB%E8%A7%A3%E5%8E%8B%E6%B4%BB%E5%8A%A8.jpg" alt="三下乡_绘画解压活动">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">三下乡_绘画解压活动</span>
+          <div class="card-meta">1920×1280 · 0.1MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('01_%E4%B8%89%E4%B8%8B%E4%B9%A1/%E4%B8%89%E4%B8%8B%E4%B9%A1_%E8%AF%BE%E4%B8%9A%E8%BE%85%E5%AF%BC%E4%B8%8E%E5%BF%83%E7%90%86%E8%AE%BF%E8%B0%88.jpg', '三下乡_课业辅导与心理访谈')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="01_%E4%B8%89%E4%B8%8B%E4%B9%A1/%E4%B8%89%E4%B8%8B%E4%B9%A1_%E8%AF%BE%E4%B8%9A%E8%BE%85%E5%AF%BC%E4%B8%8E%E5%BF%83%E7%90%86%E8%AE%BF%E8%B0%88.jpg" alt="三下乡_课业辅导与心理访谈">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">三下乡_课业辅导与心理访谈</span>
+          <div class="card-meta">1920×1280 · 0.1MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('01_%E4%B8%89%E4%B8%8B%E4%B9%A1/%E4%B8%89%E4%B8%8B%E4%B9%A1_%E9%87%87%E8%AE%BF%E9%99%B6%E4%BC%9A%E6%B1%9D%E8%80%81%E5%B8%88.jpg', '三下乡_采访陶会汝老师')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="01_%E4%B8%89%E4%B8%8B%E4%B9%A1/%E4%B8%89%E4%B8%8B%E4%B9%A1_%E9%87%87%E8%AE%BF%E9%99%B6%E4%BC%9A%E6%B1%9D%E8%80%81%E5%B8%88.jpg" alt="三下乡_采访陶会汝老师">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">三下乡_采访陶会汝老师</span>
+          <div class="card-meta">1136×640 · 0.1MB</div>
+        </div>
+      </figure>
+    </div>
+  </section>
+  <section class="section fade-in" id="section-2">
+    <div class="section-header">
+      <div class="section-icon">🔮</div>
+      <h2 class="section-title">寻心灵之宝</h2>
+      <span class="section-count">2 张</span>
+    </div>
+    <div class="gallery">
+      <figure class="card" onclick="openLightbox('02_%E5%AF%BB%E5%BF%83%E7%81%B5%E4%B9%8B%E5%AE%9D/%E5%AF%BB%E5%BF%83%E7%81%B5%E4%B9%8B%E5%AE%9D_%E5%9B%A2%E9%98%9F%E5%B1%95%E7%A4%BA%E6%9B%BC%E9%99%80%E7%BD%97%E4%BD%9C%E5%93%81.jpg', '寻心灵之宝_团队展示曼陀罗作品')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="02_%E5%AF%BB%E5%BF%83%E7%81%B5%E4%B9%8B%E5%AE%9D/%E5%AF%BB%E5%BF%83%E7%81%B5%E4%B9%8B%E5%AE%9D_%E5%9B%A2%E9%98%9F%E5%B1%95%E7%A4%BA%E6%9B%BC%E9%99%80%E7%BD%97%E4%BD%9C%E5%93%81.jpg" alt="寻心灵之宝_团队展示曼陀罗作品">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">寻心灵之宝_团队展示曼陀罗作品</span>
+          <div class="card-meta">4096×3072 · 2.4MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('02_%E5%AF%BB%E5%BF%83%E7%81%B5%E4%B9%8B%E5%AE%9D/%E5%AF%BB%E5%BF%83%E7%81%B5%E4%B9%8B%E5%AE%9D_%E6%88%B7%E5%A4%96%E6%B4%BB%E5%8A%A8%E7%8E%B0%E5%9C%BA.jpg', '寻心灵之宝_户外活动现场')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="02_%E5%AF%BB%E5%BF%83%E7%81%B5%E4%B9%8B%E5%AE%9D/%E5%AF%BB%E5%BF%83%E7%81%B5%E4%B9%8B%E5%AE%9D_%E6%88%B7%E5%A4%96%E6%B4%BB%E5%8A%A8%E7%8E%B0%E5%9C%BA.jpg" alt="寻心灵之宝_户外活动现场">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">寻心灵之宝_户外活动现场</span>
+          <div class="card-meta">1080×2412 · 0.8MB</div>
+        </div>
+      </figure>
+    </div>
+  </section>
+  <section class="section fade-in" id="section-3">
+    <div class="section-header">
+      <div class="section-icon">🏃</div>
+      <h2 class="section-title">奔跑吧云大</h2>
+      <span class="section-count">5 张</span>
+    </div>
+    <div class="gallery">
+      <figure class="card" onclick="openLightbox('03_%E5%A5%94%E8%B7%91%E5%90%A7%E4%BA%91%E5%A4%A7/%E5%A5%94%E8%B7%91%E5%90%A7%E4%BA%91%E5%A4%A7_01.jpg', '奔跑吧云大_01')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="03_%E5%A5%94%E8%B7%91%E5%90%A7%E4%BA%91%E5%A4%A7/%E5%A5%94%E8%B7%91%E5%90%A7%E4%BA%91%E5%A4%A7_01.jpg" alt="奔跑吧云大_01">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">奔跑吧云大_01</span>
+          <div class="card-meta">1706×1279 · 0.6MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('03_%E5%A5%94%E8%B7%91%E5%90%A7%E4%BA%91%E5%A4%A7/%E5%A5%94%E8%B7%91%E5%90%A7%E4%BA%91%E5%A4%A7_02.jpg', '奔跑吧云大_02')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="03_%E5%A5%94%E8%B7%91%E5%90%A7%E4%BA%91%E5%A4%A7/%E5%A5%94%E8%B7%91%E5%90%A7%E4%BA%91%E5%A4%A7_02.jpg" alt="奔跑吧云大_02">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">奔跑吧云大_02</span>
+          <div class="card-meta">1707×1280 · 0.4MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('03_%E5%A5%94%E8%B7%91%E5%90%A7%E4%BA%91%E5%A4%A7/%E5%A5%94%E8%B7%91%E5%90%A7%E4%BA%91%E5%A4%A7_03.jpg', '奔跑吧云大_03')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="03_%E5%A5%94%E8%B7%91%E5%90%A7%E4%BA%91%E5%A4%A7/%E5%A5%94%E8%B7%91%E5%90%A7%E4%BA%91%E5%A4%A7_03.jpg" alt="奔跑吧云大_03">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">奔跑吧云大_03</span>
+          <div class="card-meta">1706×1279 · 0.3MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('03_%E5%A5%94%E8%B7%91%E5%90%A7%E4%BA%91%E5%A4%A7/%E5%A5%94%E8%B7%91%E5%90%A7%E4%BA%91%E5%A4%A7_04.jpg', '奔跑吧云大_04')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="03_%E5%A5%94%E8%B7%91%E5%90%A7%E4%BA%91%E5%A4%A7/%E5%A5%94%E8%B7%91%E5%90%A7%E4%BA%91%E5%A4%A7_04.jpg" alt="奔跑吧云大_04">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">奔跑吧云大_04</span>
+          <div class="card-meta">1706×1279 · 0.3MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('03_%E5%A5%94%E8%B7%91%E5%90%A7%E4%BA%91%E5%A4%A7/%E5%A5%94%E8%B7%91%E5%90%A7%E4%BA%91%E5%A4%A7_05.jpg', '奔跑吧云大_05')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="03_%E5%A5%94%E8%B7%91%E5%90%A7%E4%BA%91%E5%A4%A7/%E5%A5%94%E8%B7%91%E5%90%A7%E4%BA%91%E5%A4%A7_05.jpg" alt="奔跑吧云大_05">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">奔跑吧云大_05</span>
+          <div class="card-meta">1706×1279 · 0.2MB</div>
+        </div>
+      </figure>
+    </div>
+  </section>
+  <section class="section fade-in" id="section-4">
+    <div class="section-header">
+      <div class="section-icon">📚</div>
+      <h2 class="section-title">读书会（读书沙龙）</h2>
+      <span class="section-count">6 张</span>
+    </div>
+    <div class="gallery">
+      <figure class="card" onclick="openLightbox('04_%E8%AF%BB%E4%B9%A6%E4%BC%9A%EF%BC%88%E8%AF%BB%E4%B9%A6%E6%B2%99%E9%BE%99%EF%BC%89/%E8%AF%BB%E4%B9%A6%E6%B2%99%E9%BE%992025%E7%A7%8B_%E4%B8%BB%E9%A2%98%E5%88%86%E4%BA%AB1.jpg', '读书沙龙2025秋_主题分享1')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="04_%E8%AF%BB%E4%B9%A6%E4%BC%9A%EF%BC%88%E8%AF%BB%E4%B9%A6%E6%B2%99%E9%BE%99%EF%BC%89/%E8%AF%BB%E4%B9%A6%E6%B2%99%E9%BE%992025%E7%A7%8B_%E4%B8%BB%E9%A2%98%E5%88%86%E4%BA%AB1.jpg" alt="读书沙龙2025秋_主题分享1">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">读书沙龙2025秋_主题分享1</span>
+          <div class="card-meta">2269×1279 · 0.8MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('04_%E8%AF%BB%E4%B9%A6%E4%BC%9A%EF%BC%88%E8%AF%BB%E4%B9%A6%E6%B2%99%E9%BE%99%EF%BC%89/%E8%AF%BB%E4%B9%A6%E6%B2%99%E9%BE%992025%E7%A7%8B_%E4%B8%BB%E9%A2%98%E5%88%86%E4%BA%AB2.jpg', '读书沙龙2025秋_主题分享2')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="04_%E8%AF%BB%E4%B9%A6%E4%BC%9A%EF%BC%88%E8%AF%BB%E4%B9%A6%E6%B2%99%E9%BE%99%EF%BC%89/%E8%AF%BB%E4%B9%A6%E6%B2%99%E9%BE%992025%E7%A7%8B_%E4%B8%BB%E9%A2%98%E5%88%86%E4%BA%AB2.jpg" alt="读书沙龙2025秋_主题分享2">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">读书沙龙2025秋_主题分享2</span>
+          <div class="card-meta">1706×1279 · 0.7MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('04_%E8%AF%BB%E4%B9%A6%E4%BC%9A%EF%BC%88%E8%AF%BB%E4%B9%A6%E6%B2%99%E9%BE%99%EF%BC%89/%E8%AF%BB%E4%B9%A6%E6%B2%99%E9%BE%992025%E7%A7%8B_%E7%8E%B0%E5%9C%BA%E8%AE%B2%E5%BA%A7.jpg', '读书沙龙2025秋_现场讲座')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="04_%E8%AF%BB%E4%B9%A6%E4%BC%9A%EF%BC%88%E8%AF%BB%E4%B9%A6%E6%B2%99%E9%BE%99%EF%BC%89/%E8%AF%BB%E4%B9%A6%E6%B2%99%E9%BE%992025%E7%A7%8B_%E7%8E%B0%E5%9C%BA%E8%AE%B2%E5%BA%A7.jpg" alt="读书沙龙2025秋_现场讲座">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">读书沙龙2025秋_现场讲座</span>
+          <div class="card-meta">1706×1279 · 0.8MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('04_%E8%AF%BB%E4%B9%A6%E4%BC%9A%EF%BC%88%E8%AF%BB%E4%B9%A6%E6%B2%99%E9%BE%99%EF%BC%89/%E8%AF%BB%E4%B9%A6%E6%B2%99%E9%BE%99_%E5%85%A8%E4%BD%93%E5%90%88%E5%BD%B1.jpg', '读书沙龙_全体合影')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="04_%E8%AF%BB%E4%B9%A6%E4%BC%9A%EF%BC%88%E8%AF%BB%E4%B9%A6%E6%B2%99%E9%BE%99%EF%BC%89/%E8%AF%BB%E4%B9%A6%E6%B2%99%E9%BE%99_%E5%85%A8%E4%BD%93%E5%90%88%E5%BD%B1.jpg" alt="读书沙龙_全体合影">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">读书沙龙_全体合影</span>
+          <div class="card-meta">1216×812 · 0.4MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('04_%E8%AF%BB%E4%B9%A6%E4%BC%9A%EF%BC%88%E8%AF%BB%E4%B9%A6%E6%B2%99%E9%BE%99%EF%BC%89/%E8%AF%BB%E4%B9%A6%E6%B2%99%E9%BE%99_%E5%9B%B4%E5%9D%90%E7%A0%94%E8%AF%BB_%E9%AB%98%E6%B8%85.jpg', '读书沙龙_围坐研读_高清')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="04_%E8%AF%BB%E4%B9%A6%E4%BC%9A%EF%BC%88%E8%AF%BB%E4%B9%A6%E6%B2%99%E9%BE%99%EF%BC%89/%E8%AF%BB%E4%B9%A6%E6%B2%99%E9%BE%99_%E5%9B%B4%E5%9D%90%E7%A0%94%E8%AF%BB_%E9%AB%98%E6%B8%85.jpg" alt="读书沙龙_围坐研读_高清">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">读书沙龙_围坐研读_高清</span>
+          <div class="card-meta">6000×4000 · 11.9MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('04_%E8%AF%BB%E4%B9%A6%E4%BC%9A%EF%BC%88%E8%AF%BB%E4%B9%A6%E6%B2%99%E9%BE%99%EF%BC%89/%E8%AF%BB%E4%B9%A6%E6%B2%99%E9%BE%99_%E8%80%81%E5%B8%88%E9%A2%86%E8%AF%BB_%E9%AB%98%E6%B8%85.jpg', '读书沙龙_老师领读_高清')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="04_%E8%AF%BB%E4%B9%A6%E4%BC%9A%EF%BC%88%E8%AF%BB%E4%B9%A6%E6%B2%99%E9%BE%99%EF%BC%89/%E8%AF%BB%E4%B9%A6%E6%B2%99%E9%BE%99_%E8%80%81%E5%B8%88%E9%A2%86%E8%AF%BB_%E9%AB%98%E6%B8%85.jpg" alt="读书沙龙_老师领读_高清">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">读书沙龙_老师领读_高清</span>
+          <div class="card-meta">6000×4000 · 12.6MB</div>
+        </div>
+      </figure>
+    </div>
+  </section>
+  <section class="section fade-in" id="section-5">
+    <div class="section-header">
+      <div class="section-icon">🎀</div>
+      <h2 class="section-title">防艾宣传</h2>
+      <span class="section-count">5 张</span>
+    </div>
+    <div class="gallery">
+      <figure class="card" onclick="openLightbox('05_%E9%98%B2%E8%89%BE%E5%AE%A3%E4%BC%A0/%E9%98%B2%E8%89%BE%E5%AE%A3%E4%BC%A0_%E4%B8%8D%E6%83%A7%E8%89%BE%E5%AE%88%E6%8A%A4%E8%89%BE%E7%B3%BB%E5%88%97%E6%B4%BB%E5%8A%A8%E5%90%88%E5%BD%B1.jpg', '防艾宣传_不惧艾守护艾系列活动合影')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="05_%E9%98%B2%E8%89%BE%E5%AE%A3%E4%BC%A0/%E9%98%B2%E8%89%BE%E5%AE%A3%E4%BC%A0_%E4%B8%8D%E6%83%A7%E8%89%BE%E5%AE%88%E6%8A%A4%E8%89%BE%E7%B3%BB%E5%88%97%E6%B4%BB%E5%8A%A8%E5%90%88%E5%BD%B1.jpg" alt="防艾宣传_不惧艾守护艾系列活动合影">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">防艾宣传_不惧艾守护艾系列活动合影</span>
+          <div class="card-meta">1700×1280 · 0.5MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('05_%E9%98%B2%E8%89%BE%E5%AE%A3%E4%BC%A0/%E9%98%B2%E8%89%BE%E5%AE%A3%E4%BC%A0_%E6%91%86%E7%82%B9%E5%AE%A3%E4%BC%A01.jpg', '防艾宣传_摆点宣传1')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="05_%E9%98%B2%E8%89%BE%E5%AE%A3%E4%BC%A0/%E9%98%B2%E8%89%BE%E5%AE%A3%E4%BC%A0_%E6%91%86%E7%82%B9%E5%AE%A3%E4%BC%A01.jpg" alt="防艾宣传_摆点宣传1">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">防艾宣传_摆点宣传1</span>
+          <div class="card-meta">1706×1279 · 0.5MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('05_%E9%98%B2%E8%89%BE%E5%AE%A3%E4%BC%A0/%E9%98%B2%E8%89%BE%E5%AE%A3%E4%BC%A0_%E6%91%86%E7%82%B9%E5%AE%A3%E4%BC%A02.jpg', '防艾宣传_摆点宣传2')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="05_%E9%98%B2%E8%89%BE%E5%AE%A3%E4%BC%A0/%E9%98%B2%E8%89%BE%E5%AE%A3%E4%BC%A0_%E6%91%86%E7%82%B9%E5%AE%A3%E4%BC%A02.jpg" alt="防艾宣传_摆点宣传2">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">防艾宣传_摆点宣传2</span>
+          <div class="card-meta">1706×1279 · 0.5MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('05_%E9%98%B2%E8%89%BE%E5%AE%A3%E4%BC%A0/%E9%98%B2%E8%89%BE%E5%AE%A3%E4%BC%A0_%E7%8E%B0%E5%9C%BA%E4%BA%92%E5%8A%A8.jpg', '防艾宣传_现场互动')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="05_%E9%98%B2%E8%89%BE%E5%AE%A3%E4%BC%A0/%E9%98%B2%E8%89%BE%E5%AE%A3%E4%BC%A0_%E7%8E%B0%E5%9C%BA%E4%BA%92%E5%8A%A8.jpg" alt="防艾宣传_现场互动">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">防艾宣传_现场互动</span>
+          <div class="card-meta">1706×1279 · 0.2MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('05_%E9%98%B2%E8%89%BE%E5%AE%A3%E4%BC%A0/%E9%98%B2%E8%89%BE%E5%AE%A3%E4%BC%A0_%E7%BA%A2%E4%B8%9D%E5%B8%A6%E7%AD%BE%E5%90%8D%E5%A2%99.jpg', '防艾宣传_红丝带签名墙')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="05_%E9%98%B2%E8%89%BE%E5%AE%A3%E4%BC%A0/%E9%98%B2%E8%89%BE%E5%AE%A3%E4%BC%A0_%E7%BA%A2%E4%B8%9D%E5%B8%A6%E7%AD%BE%E5%90%8D%E5%A2%99.jpg" alt="防艾宣传_红丝带签名墙">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">防艾宣传_红丝带签名墙</span>
+          <div class="card-meta">1706×1279 · 0.3MB</div>
+        </div>
+      </figure>
+    </div>
+  </section>
+  <section class="section fade-in" id="section-6">
+    <div class="section-header">
+      <div class="section-icon">🎯</div>
+      <h2 class="section-title">立项活动</h2>
+      <span class="section-count">22 张</span>
+    </div>
+    <div class="gallery">
+      <figure class="card" onclick="openLightbox('06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E4%B8%96%E7%95%8C%E7%B2%BE%E7%A5%9E%E5%8D%AB%E7%94%9F%E6%97%A5/%E4%B8%96%E7%95%8C%E7%B2%BE%E7%A5%9E%E5%8D%AB%E7%94%9F%E6%97%A5_01.jpg', '世界精神卫生日_01')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E4%B8%96%E7%95%8C%E7%B2%BE%E7%A5%9E%E5%8D%AB%E7%94%9F%E6%97%A5/%E4%B8%96%E7%95%8C%E7%B2%BE%E7%A5%9E%E5%8D%AB%E7%94%9F%E6%97%A5_01.jpg" alt="世界精神卫生日_01">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">世界精神卫生日_01</span>
+          <div class="card-meta">1706×1279 · 0.4MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E4%B8%96%E7%95%8C%E7%B2%BE%E7%A5%9E%E5%8D%AB%E7%94%9F%E6%97%A5/%E4%B8%96%E7%95%8C%E7%B2%BE%E7%A5%9E%E5%8D%AB%E7%94%9F%E6%97%A5_02.jpg', '世界精神卫生日_02')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E4%B8%96%E7%95%8C%E7%B2%BE%E7%A5%9E%E5%8D%AB%E7%94%9F%E6%97%A5/%E4%B8%96%E7%95%8C%E7%B2%BE%E7%A5%9E%E5%8D%AB%E7%94%9F%E6%97%A5_02.jpg" alt="世界精神卫生日_02">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">世界精神卫生日_02</span>
+          <div class="card-meta">1706×1279 · 0.3MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E4%B8%96%E7%95%8C%E7%B2%BE%E7%A5%9E%E5%8D%AB%E7%94%9F%E6%97%A5/%E4%B8%96%E7%95%8C%E7%B2%BE%E7%A5%9E%E5%8D%AB%E7%94%9F%E6%97%A5_03.jpg', '世界精神卫生日_03')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E4%B8%96%E7%95%8C%E7%B2%BE%E7%A5%9E%E5%8D%AB%E7%94%9F%E6%97%A5/%E4%B8%96%E7%95%8C%E7%B2%BE%E7%A5%9E%E5%8D%AB%E7%94%9F%E6%97%A5_03.jpg" alt="世界精神卫生日_03">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">世界精神卫生日_03</span>
+          <div class="card-meta">1706×1279 · 0.3MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E5%90%8C%E4%BC%B4%E6%95%99%E8%82%B2%E4%B8%BB%E6%8C%81%E4%BA%BA%E5%A4%A7%E8%B5%9B/%E5%90%8C%E4%BC%B4%E6%95%99%E8%82%B2%E4%B8%BB%E6%8C%81%E4%BA%BA%E5%A4%A7%E8%B5%9B_01.jpg', '同伴教育主持人大赛_01')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E5%90%8C%E4%BC%B4%E6%95%99%E8%82%B2%E4%B8%BB%E6%8C%81%E4%BA%BA%E5%A4%A7%E8%B5%9B/%E5%90%8C%E4%BC%B4%E6%95%99%E8%82%B2%E4%B8%BB%E6%8C%81%E4%BA%BA%E5%A4%A7%E8%B5%9B_01.jpg" alt="同伴教育主持人大赛_01">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">同伴教育主持人大赛_01</span>
+          <div class="card-meta">1776×1184 · 0.9MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E5%90%8C%E4%BC%B4%E6%95%99%E8%82%B2%E4%B8%BB%E6%8C%81%E4%BA%BA%E5%A4%A7%E8%B5%9B/%E5%90%8C%E4%BC%B4%E6%95%99%E8%82%B2%E4%B8%BB%E6%8C%81%E4%BA%BA%E5%A4%A7%E8%B5%9B_02.jpg', '同伴教育主持人大赛_02')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E5%90%8C%E4%BC%B4%E6%95%99%E8%82%B2%E4%B8%BB%E6%8C%81%E4%BA%BA%E5%A4%A7%E8%B5%9B/%E5%90%8C%E4%BC%B4%E6%95%99%E8%82%B2%E4%B8%BB%E6%8C%81%E4%BA%BA%E5%A4%A7%E8%B5%9B_02.jpg" alt="同伴教育主持人大赛_02">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">同伴教育主持人大赛_02</span>
+          <div class="card-meta">1776×1184 · 0.8MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E5%90%8C%E4%BC%B4%E6%95%99%E8%82%B2%E4%B8%BB%E6%8C%81%E4%BA%BA%E5%A4%A7%E8%B5%9B/%E5%90%8C%E4%BC%B4%E6%95%99%E8%82%B2%E4%B8%BB%E6%8C%81%E4%BA%BA%E5%A4%A7%E8%B5%9B_03.jpg', '同伴教育主持人大赛_03')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E5%90%8C%E4%BC%B4%E6%95%99%E8%82%B2%E4%B8%BB%E6%8C%81%E4%BA%BA%E5%A4%A7%E8%B5%9B/%E5%90%8C%E4%BC%B4%E6%95%99%E8%82%B2%E4%B8%BB%E6%8C%81%E4%BA%BA%E5%A4%A7%E8%B5%9B_03.jpg" alt="同伴教育主持人大赛_03">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">同伴教育主持人大赛_03</span>
+          <div class="card-meta">1776×1184 · 0.5MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E5%9B%A2%E8%BE%85%E7%A7%AF%E5%88%86%E8%B5%9B/%E5%9B%A2%E8%BE%85%E7%A7%AF%E5%88%86%E8%B5%9B2025%E7%A7%8B_2.jpg', '团辅积分赛2025秋_2')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E5%9B%A2%E8%BE%85%E7%A7%AF%E5%88%86%E8%B5%9B/%E5%9B%A2%E8%BE%85%E7%A7%AF%E5%88%86%E8%B5%9B2025%E7%A7%8B_2.jpg" alt="团辅积分赛2025秋_2">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">团辅积分赛2025秋_2</span>
+          <div class="card-meta">1350×1080 · 0.9MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E5%9B%A2%E8%BE%85%E7%A7%AF%E5%88%86%E8%B5%9B/%E5%9B%A2%E8%BE%85%E7%A7%AF%E5%88%86%E8%B5%9B2025%E7%A7%8B_4.jpg', '团辅积分赛2025秋_4')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E5%9B%A2%E8%BE%85%E7%A7%AF%E5%88%86%E8%B5%9B/%E5%9B%A2%E8%BE%85%E7%A7%AF%E5%88%86%E8%B5%9B2025%E7%A7%8B_4.jpg" alt="团辅积分赛2025秋_4">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">团辅积分赛2025秋_4</span>
+          <div class="card-meta">1440×1080 · 0.2MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E5%9B%A2%E8%BE%85%E7%A7%AF%E5%88%86%E8%B5%9B/%E5%9B%A2%E8%BE%85%E7%A7%AF%E5%88%86%E8%B5%9B2025%E7%A7%8B_5.jpg', '团辅积分赛2025秋_5')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E5%9B%A2%E8%BE%85%E7%A7%AF%E5%88%86%E8%B5%9B/%E5%9B%A2%E8%BE%85%E7%A7%AF%E5%88%86%E8%B5%9B2025%E7%A7%8B_5.jpg" alt="团辅积分赛2025秋_5">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">团辅积分赛2025秋_5</span>
+          <div class="card-meta">1440×1080 · 0.3MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E5%9B%A2%E8%BE%85%E7%A7%AF%E5%88%86%E8%B5%9B/%E5%9B%A2%E8%BE%85%E7%A7%AF%E5%88%86%E8%B5%9B_%E6%93%8D%E5%9C%BA%E5%9B%A2%E4%BD%93%E6%B4%BB%E5%8A%A8_%E9%AB%98%E6%B8%85.jpg', '团辅积分赛_操场团体活动_高清')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E5%9B%A2%E8%BE%85%E7%A7%AF%E5%88%86%E8%B5%9B/%E5%9B%A2%E8%BE%85%E7%A7%AF%E5%88%86%E8%B5%9B_%E6%93%8D%E5%9C%BA%E5%9B%A2%E4%BD%93%E6%B4%BB%E5%8A%A8_%E9%AB%98%E6%B8%85.jpg" alt="团辅积分赛_操场团体活动_高清">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">团辅积分赛_操场团体活动_高清</span>
+          <div class="card-meta">4096×2479 · 5.8MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E5%BF%83%E7%90%86%E6%B8%B8%E5%9B%AD%E4%BC%9A%EF%BC%882026%E6%98%A5%EF%BC%89/%E5%BF%83%E7%90%86%E6%B8%B8%E5%9B%AD%E4%BC%9A_01.jpg', '心理游园会_01')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E5%BF%83%E7%90%86%E6%B8%B8%E5%9B%AD%E4%BC%9A%EF%BC%882026%E6%98%A5%EF%BC%89/%E5%BF%83%E7%90%86%E6%B8%B8%E5%9B%AD%E4%BC%9A_01.jpg" alt="心理游园会_01">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">心理游园会_01</span>
+          <div class="card-meta">1700×1280 · 0.6MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E5%BF%83%E7%90%86%E6%B8%B8%E5%9B%AD%E4%BC%9A%EF%BC%882026%E6%98%A5%EF%BC%89/%E5%BF%83%E7%90%86%E6%B8%B8%E5%9B%AD%E4%BC%9A_02.jpg', '心理游园会_02')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E5%BF%83%E7%90%86%E6%B8%B8%E5%9B%AD%E4%BC%9A%EF%BC%882026%E6%98%A5%EF%BC%89/%E5%BF%83%E7%90%86%E6%B8%B8%E5%9B%AD%E4%BC%9A_02.jpg" alt="心理游园会_02">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">心理游园会_02</span>
+          <div class="card-meta">1700×1280 · 0.5MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E5%BF%83%E7%90%86%E6%B8%B8%E5%9B%AD%E4%BC%9A%EF%BC%882026%E6%98%A5%EF%BC%89/%E5%BF%83%E7%90%86%E6%B8%B8%E5%9B%AD%E4%BC%9A_03.jpg', '心理游园会_03')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E5%BF%83%E7%90%86%E6%B8%B8%E5%9B%AD%E4%BC%9A%EF%BC%882026%E6%98%A5%EF%BC%89/%E5%BF%83%E7%90%86%E6%B8%B8%E5%9B%AD%E4%BC%9A_03.jpg" alt="心理游园会_03">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">心理游园会_03</span>
+          <div class="card-meta">1700×1280 · 0.6MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E5%BF%83%E7%90%86%E6%B8%B8%E5%9B%AD%E4%BC%9A%EF%BC%882026%E6%98%A5%EF%BC%89/%E5%BF%83%E7%90%86%E6%B8%B8%E5%9B%AD%E4%BC%9A_04.jpg', '心理游园会_04')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E5%BF%83%E7%90%86%E6%B8%B8%E5%9B%AD%E4%BC%9A%EF%BC%882026%E6%98%A5%EF%BC%89/%E5%BF%83%E7%90%86%E6%B8%B8%E5%9B%AD%E4%BC%9A_04.jpg" alt="心理游园会_04">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">心理游园会_04</span>
+          <div class="card-meta">1700×1280 · 0.5MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E5%BF%83%E7%90%86%E6%B8%B8%E5%9B%AD%E4%BC%9A%EF%BC%882026%E6%98%A5%EF%BC%89/%E5%BF%83%E7%90%86%E6%B8%B8%E5%9B%AD%E4%BC%9A_05.jpg', '心理游园会_05')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E5%BF%83%E7%90%86%E6%B8%B8%E5%9B%AD%E4%BC%9A%EF%BC%882026%E6%98%A5%EF%BC%89/%E5%BF%83%E7%90%86%E6%B8%B8%E5%9B%AD%E4%BC%9A_05.jpg" alt="心理游园会_05">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">心理游园会_05</span>
+          <div class="card-meta">1700×1280 · 0.6MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E7%B4%A0%E8%B4%A8%E6%8B%93%E5%B1%95/%E7%B4%A0%E8%B4%A8%E6%8B%93%E5%B1%95_01.jpg', '素质拓展_01')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E7%B4%A0%E8%B4%A8%E6%8B%93%E5%B1%95/%E7%B4%A0%E8%B4%A8%E6%8B%93%E5%B1%95_01.jpg" alt="素质拓展_01">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">素质拓展_01</span>
+          <div class="card-meta">1920×1440 · 0.8MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E7%B4%A0%E8%B4%A8%E6%8B%93%E5%B1%95/%E7%B4%A0%E8%B4%A8%E6%8B%93%E5%B1%95_02.jpg', '素质拓展_02')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E7%B4%A0%E8%B4%A8%E6%8B%93%E5%B1%95/%E7%B4%A0%E8%B4%A8%E6%8B%93%E5%B1%95_02.jpg" alt="素质拓展_02">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">素质拓展_02</span>
+          <div class="card-meta">1706×1280 · 0.7MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E7%B4%A0%E8%B4%A8%E6%8B%93%E5%B1%95/%E7%B4%A0%E8%B4%A8%E6%8B%93%E5%B1%95_03.jpg', '素质拓展_03')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E7%B4%A0%E8%B4%A8%E6%8B%93%E5%B1%95/%E7%B4%A0%E8%B4%A8%E6%8B%93%E5%B1%95_03.jpg" alt="素质拓展_03">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">素质拓展_03</span>
+          <div class="card-meta">1706×1280 · 0.5MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E7%B4%A0%E8%B4%A8%E6%8B%93%E5%B1%95/%E7%B4%A0%E8%B4%A8%E6%8B%93%E5%B1%95_04.jpg', '素质拓展_04')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E7%B4%A0%E8%B4%A8%E6%8B%93%E5%B1%95/%E7%B4%A0%E8%B4%A8%E6%8B%93%E5%B1%95_04.jpg" alt="素质拓展_04">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">素质拓展_04</span>
+          <div class="card-meta">1080×810 · 1.2MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E7%B4%A0%E8%B4%A8%E6%8B%93%E5%B1%95/%E7%B4%A0%E8%B4%A8%E6%8B%93%E5%B1%95_05.jpg', '素质拓展_05')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E7%B4%A0%E8%B4%A8%E6%8B%93%E5%B1%95/%E7%B4%A0%E8%B4%A8%E6%8B%93%E5%B1%95_05.jpg" alt="素质拓展_05">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">素质拓展_05</span>
+          <div class="card-meta">1080×720 · 0.6MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E7%BB%98%E8%A7%81%E5%BF%83%E7%81%B5%C2%B7%E7%96%97%E6%84%88%E4%B9%8B%E7%BE%8E/%E7%BB%98%E8%A7%81%E5%BF%83%E7%81%B5_%E4%BD%9C%E5%93%81%E5%B1%95%E7%A4%BA%E5%90%88%E5%BD%B1_%E9%AB%98%E6%B8%85.jpg', '绘见心灵_作品展示合影_高清')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E7%BB%98%E8%A7%81%E5%BF%83%E7%81%B5%C2%B7%E7%96%97%E6%84%88%E4%B9%8B%E7%BE%8E/%E7%BB%98%E8%A7%81%E5%BF%83%E7%81%B5_%E4%BD%9C%E5%93%81%E5%B1%95%E7%A4%BA%E5%90%88%E5%BD%B1_%E9%AB%98%E6%B8%85.jpg" alt="绘见心灵_作品展示合影_高清">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">绘见心灵_作品展示合影_高清</span>
+          <div class="card-meta">4096×3072 · 3.1MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E7%BB%98%E8%A7%81%E5%BF%83%E7%81%B5%C2%B7%E7%96%97%E6%84%88%E4%B9%8B%E7%BE%8E/%E7%BB%98%E8%A7%81%E5%BF%83%E7%81%B5_%E7%BB%98%E7%94%BB%E7%8E%B0%E5%9C%BA_%E9%AB%98%E6%B8%85.jpg', '绘见心灵_绘画现场_高清')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="06_%E7%AB%8B%E9%A1%B9%E6%B4%BB%E5%8A%A8/%E7%BB%98%E8%A7%81%E5%BF%83%E7%81%B5%C2%B7%E7%96%97%E6%84%88%E4%B9%8B%E7%BE%8E/%E7%BB%98%E8%A7%81%E5%BF%83%E7%81%B5_%E7%BB%98%E7%94%BB%E7%8E%B0%E5%9C%BA_%E9%AB%98%E6%B8%85.jpg" alt="绘见心灵_绘画现场_高清">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">绘见心灵_绘画现场_高清</span>
+          <div class="card-meta">4096×3072 · 3.8MB</div>
+        </div>
+      </figure>
+    </div>
+  </section>
+  <section class="section fade-in" id="section-7">
+    <div class="section-header">
+      <div class="section-icon">🎭</div>
+      <h2 class="section-title">大型活动</h2>
+      <span class="section-count">14 张</span>
+    </div>
+    <div class="gallery">
+      <figure class="card" onclick="openLightbox('07_%E5%A4%A7%E5%9E%8B%E6%B4%BB%E5%8A%A8/525%E5%BF%83%E7%90%86%E5%81%A5%E5%BA%B7%E6%9C%88%E6%99%9A%E4%BC%9A/525%E6%99%9A%E4%BC%9A_%E5%85%A8%E4%BD%93%E5%90%88%E5%BD%B1_%E9%AB%98%E6%B8%85.jpg', '525晚会_全体合影_高清')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="07_%E5%A4%A7%E5%9E%8B%E6%B4%BB%E5%8A%A8/525%E5%BF%83%E7%90%86%E5%81%A5%E5%BA%B7%E6%9C%88%E6%99%9A%E4%BC%9A/525%E6%99%9A%E4%BC%9A_%E5%85%A8%E4%BD%93%E5%90%88%E5%BD%B1_%E9%AB%98%E6%B8%85.jpg" alt="525晚会_全体合影_高清">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">525晚会_全体合影_高清</span>
+          <div class="card-meta">4096×3072 · 2.8MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('07_%E5%A4%A7%E5%9E%8B%E6%B4%BB%E5%8A%A8/525%E5%BF%83%E7%90%86%E5%81%A5%E5%BA%B7%E6%9C%88%E6%99%9A%E4%BC%9A/525%E6%99%9A%E4%BC%9A_%E5%9B%B4%E5%9D%90%E4%BA%A4%E6%B5%81_%E9%AB%98%E6%B8%85.jpg', '525晚会_围坐交流_高清')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="07_%E5%A4%A7%E5%9E%8B%E6%B4%BB%E5%8A%A8/525%E5%BF%83%E7%90%86%E5%81%A5%E5%BA%B7%E6%9C%88%E6%99%9A%E4%BC%9A/525%E6%99%9A%E4%BC%9A_%E5%9B%B4%E5%9D%90%E4%BA%A4%E6%B5%81_%E9%AB%98%E6%B8%85.jpg" alt="525晚会_围坐交流_高清">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">525晚会_围坐交流_高清</span>
+          <div class="card-meta">5184×3456 · 7.7MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('07_%E5%A4%A7%E5%9E%8B%E6%B4%BB%E5%8A%A8/525%E5%BF%83%E7%90%86%E5%81%A5%E5%BA%B7%E6%9C%88%E6%99%9A%E4%BC%9A/525%E6%99%9A%E4%BC%9A_%E5%AE%A4%E5%86%85%E5%9B%A2%E4%BD%93%E6%B4%BB%E5%8A%A81_%E9%AB%98%E6%B8%85.jpg', '525晚会_室内团体活动1_高清')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="07_%E5%A4%A7%E5%9E%8B%E6%B4%BB%E5%8A%A8/525%E5%BF%83%E7%90%86%E5%81%A5%E5%BA%B7%E6%9C%88%E6%99%9A%E4%BC%9A/525%E6%99%9A%E4%BC%9A_%E5%AE%A4%E5%86%85%E5%9B%A2%E4%BD%93%E6%B4%BB%E5%8A%A81_%E9%AB%98%E6%B8%85.jpg" alt="525晚会_室内团体活动1_高清">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">525晚会_室内团体活动1_高清</span>
+          <div class="card-meta">5184×3456 · 8.2MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('07_%E5%A4%A7%E5%9E%8B%E6%B4%BB%E5%8A%A8/525%E5%BF%83%E7%90%86%E5%81%A5%E5%BA%B7%E6%9C%88%E6%99%9A%E4%BC%9A/525%E6%99%9A%E4%BC%9A_%E5%AE%A4%E5%86%85%E5%9B%A2%E4%BD%93%E6%B4%BB%E5%8A%A82_%E9%AB%98%E6%B8%85.jpg', '525晚会_室内团体活动2_高清')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="07_%E5%A4%A7%E5%9E%8B%E6%B4%BB%E5%8A%A8/525%E5%BF%83%E7%90%86%E5%81%A5%E5%BA%B7%E6%9C%88%E6%99%9A%E4%BC%9A/525%E6%99%9A%E4%BC%9A_%E5%AE%A4%E5%86%85%E5%9B%A2%E4%BD%93%E6%B4%BB%E5%8A%A82_%E9%AB%98%E6%B8%85.jpg" alt="525晚会_室内团体活动2_高清">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">525晚会_室内团体活动2_高清</span>
+          <div class="card-meta">5184×3456 · 8.1MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('07_%E5%A4%A7%E5%9E%8B%E6%B4%BB%E5%8A%A8/525%E5%BF%83%E7%90%86%E5%81%A5%E5%BA%B7%E6%9C%88%E6%99%9A%E4%BC%9A/525%E6%99%9A%E4%BC%9A_%E8%88%9E%E5%8F%B0%E5%A4%A7%E5%90%88%E5%BD%B1_%E9%AB%98%E6%B8%85.jpg', '525晚会_舞台大合影_高清')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="07_%E5%A4%A7%E5%9E%8B%E6%B4%BB%E5%8A%A8/525%E5%BF%83%E7%90%86%E5%81%A5%E5%BA%B7%E6%9C%88%E6%99%9A%E4%BC%9A/525%E6%99%9A%E4%BC%9A_%E8%88%9E%E5%8F%B0%E5%A4%A7%E5%90%88%E5%BD%B1_%E9%AB%98%E6%B8%85.jpg" alt="525晚会_舞台大合影_高清">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">525晚会_舞台大合影_高清</span>
+          <div class="card-meta">6000×3368 · 9.3MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('07_%E5%A4%A7%E5%9E%8B%E6%B4%BB%E5%8A%A8/525%E5%BF%83%E7%90%86%E5%81%A5%E5%BA%B7%E6%9C%88%E6%99%9A%E4%BC%9A/525%E6%99%9A%E4%BC%9A_%E8%8A%82%E7%9B%AE%E5%8D%95%E6%B5%B7%E6%8A%A5.png', '525晚会_节目单海报')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="07_%E5%A4%A7%E5%9E%8B%E6%B4%BB%E5%8A%A8/525%E5%BF%83%E7%90%86%E5%81%A5%E5%BA%B7%E6%9C%88%E6%99%9A%E4%BC%9A/525%E6%99%9A%E4%BC%9A_%E8%8A%82%E7%9B%AE%E5%8D%95%E6%B5%B7%E6%8A%A5.png" alt="525晚会_节目单海报">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">525晚会_节目单海报</span>
+          <div class="card-meta">1242×2688 · 1.2MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('07_%E5%A4%A7%E5%9E%8B%E6%B4%BB%E5%8A%A8/%E5%BF%83%E7%90%86%E5%89%A7/%E5%BF%83%E7%90%86%E5%89%A7_%E5%A4%A7%E8%B5%9B%E8%88%9E%E5%8F%B0_%E9%AB%98%E6%B8%85.png', '心理剧_大赛舞台_高清')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="07_%E5%A4%A7%E5%9E%8B%E6%B4%BB%E5%8A%A8/%E5%BF%83%E7%90%86%E5%89%A7/%E5%BF%83%E7%90%86%E5%89%A7_%E5%A4%A7%E8%B5%9B%E8%88%9E%E5%8F%B0_%E9%AB%98%E6%B8%85.png" alt="心理剧_大赛舞台_高清">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">心理剧_大赛舞台_高清</span>
+          <div class="card-meta">4096×2645 · 18.3MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('07_%E5%A4%A7%E5%9E%8B%E6%B4%BB%E5%8A%A8/%E5%BF%83%E7%90%86%E5%89%A7/%E5%BF%83%E7%90%86%E5%89%A7_%E6%BC%94%E5%87%BA%E7%8E%B0%E5%9C%BA1.jpg', '心理剧_演出现场1')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="07_%E5%A4%A7%E5%9E%8B%E6%B4%BB%E5%8A%A8/%E5%BF%83%E7%90%86%E5%89%A7/%E5%BF%83%E7%90%86%E5%89%A7_%E6%BC%94%E5%87%BA%E7%8E%B0%E5%9C%BA1.jpg" alt="心理剧_演出现场1">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">心理剧_演出现场1</span>
+          <div class="card-meta">1440×1079 · 0.2MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('07_%E5%A4%A7%E5%9E%8B%E6%B4%BB%E5%8A%A8/%E5%BF%83%E7%90%86%E5%89%A7/%E5%BF%83%E7%90%86%E5%89%A7_%E6%BC%94%E5%87%BA%E7%8E%B0%E5%9C%BA2.png', '心理剧_演出现场2')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="07_%E5%A4%A7%E5%9E%8B%E6%B4%BB%E5%8A%A8/%E5%BF%83%E7%90%86%E5%89%A7/%E5%BF%83%E7%90%86%E5%89%A7_%E6%BC%94%E5%87%BA%E7%8E%B0%E5%9C%BA2.png" alt="心理剧_演出现场2">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">心理剧_演出现场2</span>
+          <div class="card-meta">959×719 · 0.7MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('07_%E5%A4%A7%E5%9E%8B%E6%B4%BB%E5%8A%A8/%E5%BF%83%E7%90%86%E5%89%A7/%E5%BF%83%E7%90%86%E5%89%A7_%E6%BC%94%E5%87%BA%E7%8E%B0%E5%9C%BA3.jpg', '心理剧_演出现场3')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="07_%E5%A4%A7%E5%9E%8B%E6%B4%BB%E5%8A%A8/%E5%BF%83%E7%90%86%E5%89%A7/%E5%BF%83%E7%90%86%E5%89%A7_%E6%BC%94%E5%87%BA%E7%8E%B0%E5%9C%BA3.jpg" alt="心理剧_演出现场3">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">心理剧_演出现场3</span>
+          <div class="card-meta">959×719 · 0.1MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('07_%E5%A4%A7%E5%9E%8B%E6%B4%BB%E5%8A%A8/%E7%99%BE%E5%9B%A2%E5%A4%A7%E6%88%98%E5%AE%A3%E4%BC%A0/%E7%99%BE%E5%9B%A2%E5%A4%A7%E6%88%982025_%E6%89%8B%E5%B7%A5%E4%BA%92%E5%8A%A8.jpg', '百团大战2025_手工互动')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="07_%E5%A4%A7%E5%9E%8B%E6%B4%BB%E5%8A%A8/%E7%99%BE%E5%9B%A2%E5%A4%A7%E6%88%98%E5%AE%A3%E4%BC%A0/%E7%99%BE%E5%9B%A2%E5%A4%A7%E6%88%982025_%E6%89%8B%E5%B7%A5%E4%BA%92%E5%8A%A8.jpg" alt="百团大战2025_手工互动">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">百团大战2025_手工互动</span>
+          <div class="card-meta">1152×864 · 0.1MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('07_%E5%A4%A7%E5%9E%8B%E6%B4%BB%E5%8A%A8/%E7%99%BE%E5%9B%A2%E5%A4%A7%E6%88%98%E5%AE%A3%E4%BC%A0/%E7%99%BE%E5%9B%A2%E5%A4%A7%E6%88%982025_%E7%AD%BE%E5%90%8D%E5%A2%99.jpg', '百团大战2025_签名墙')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="07_%E5%A4%A7%E5%9E%8B%E6%B4%BB%E5%8A%A8/%E7%99%BE%E5%9B%A2%E5%A4%A7%E6%88%98%E5%AE%A3%E4%BC%A0/%E7%99%BE%E5%9B%A2%E5%A4%A7%E6%88%982025_%E7%AD%BE%E5%90%8D%E5%A2%99.jpg" alt="百团大战2025_签名墙">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">百团大战2025_签名墙</span>
+          <div class="card-meta">1706×1279 · 0.2MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('07_%E5%A4%A7%E5%9E%8B%E6%B4%BB%E5%8A%A8/%E7%99%BE%E5%9B%A2%E5%A4%A7%E6%88%98%E5%AE%A3%E4%BC%A0/%E7%99%BE%E5%9B%A2%E5%A4%A7%E6%88%98_12355%E5%92%8C%E5%BF%83%E5%90%8C%E8%A1%8C%E5%90%88%E5%BD%B1.jpg', '百团大战_12355和心同行合影')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="07_%E5%A4%A7%E5%9E%8B%E6%B4%BB%E5%8A%A8/%E7%99%BE%E5%9B%A2%E5%A4%A7%E6%88%98%E5%AE%A3%E4%BC%A0/%E7%99%BE%E5%9B%A2%E5%A4%A7%E6%88%98_12355%E5%92%8C%E5%BF%83%E5%90%8C%E8%A1%8C%E5%90%88%E5%BD%B1.jpg" alt="百团大战_12355和心同行合影">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">百团大战_12355和心同行合影</span>
+          <div class="card-meta">2320×1280 · 0.4MB</div>
+        </div>
+      </figure>
+      <figure class="card" onclick="openLightbox('07_%E5%A4%A7%E5%9E%8B%E6%B4%BB%E5%8A%A8/%E7%99%BE%E5%9B%A2%E5%A4%A7%E6%88%98%E5%AE%A3%E4%BC%A0/%E7%99%BE%E5%9B%A2%E5%A4%A7%E6%88%98_%E6%91%86%E7%82%B9%E5%B8%90%E7%AF%B7.jpg', '百团大战_摆点帐篷')">
+        <div class="card-img-wrap">
+          <img loading="lazy" src="07_%E5%A4%A7%E5%9E%8B%E6%B4%BB%E5%8A%A8/%E7%99%BE%E5%9B%A2%E5%A4%A7%E6%88%98%E5%AE%A3%E4%BC%A0/%E7%99%BE%E5%9B%A2%E5%A4%A7%E6%88%98_%E6%91%86%E7%82%B9%E5%B8%90%E7%AF%B7.jpg" alt="百团大战_摆点帐篷">
+          <div class="card-overlay">
+            <span class="card-overlay-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              查看原图
+            </span>
+          </div>
+        </div>
+        <div class="card-info">
+          <span class="card-name">百团大战_摆点帐篷</span>
+          <div class="card-meta">2280×1280 · 0.4MB</div>
+        </div>
+      </figure>
+    </div>
+  </section>
+</main>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">×</button>
+  <button class="lightbox-nav lightbox-prev" onclick="navLightbox(-1)">‹</button>
+  <img id="lightbox-img" src="" alt="">
+  <button class="lightbox-nav lightbox-next" onclick="navLightbox(1)">›</button>
+  <div class="lightbox-caption" id="lightbox-caption"></div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <p>来源：U 盘 F:\心理协会 · 本页仅为索引，原图仍存放在各分类子文件夹中</p>
+</footer>
+
+<script>
+  // Lightbox functionality
+  let currentImages = [];
+  let currentIndex = 0;
+  
+  // Collect all image data
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.card').forEach((card, idx) => {
+      const img = card.querySelector('img');
+      const link = card.querySelector('a') || card;
+      const href = img.closest('a') ? img.closest('a').href : img.src;
+      const name = card.querySelector('.card-name').textContent;
+      currentImages.push({ src: href, name: name });
+    });
+  });
+  
+  function openLightbox(src, name) {
+    const lightbox = document.getElementById('lightbox');
+    const img = document.getElementById('lightbox-img');
+    const caption = document.getElementById('lightbox-caption');
+    
+    // Find the index
+    currentIndex = currentImages.findIndex(i => i.src.includes(src.split('/').pop()));
+    if (currentIndex === -1) currentIndex = 0;
+    
+    img.src = src;
+    caption.textContent = name;
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  
+  function navLightbox(dir) {
+    currentIndex = (currentIndex + dir + currentImages.length) % currentImages.length;
+    const item = currentImages[currentIndex];
+    document.getElementById('lightbox-img').src = item.src;
+    document.getElementById('lightbox-caption').textContent = item.name;
+  }
+  
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    const lightbox = document.getElementById('lightbox');
+    if (!lightbox.classList.contains('active')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') navLightbox(-1);
+    if (e.key === 'ArrowRight') navLightbox(1);
+  });
+  
+  // Click outside to close
+  document.getElementById('lightbox').addEventListener('click', (e) => {
+    if (e.target.id === 'lightbox') closeLightbox();
+  });
+  
+  // Scroll animation
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.animationPlayState = 'running';
+      }
+    });
+  }, { threshold: 0.1 });
+  
+  document.querySelectorAll('.fade-in').forEach(el => {
+    el.style.animationPlayState = 'paused';
+    observer.observe(el);
+  });
+  
+  // Active nav link on scroll
+  const sections = document.querySelectorAll('.section');
+  const navLinks = document.querySelectorAll('.nav-link');
+  
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      if (window.pageYOffset >= sectionTop - 120) {
+        current = section.getAttribute('id');
+      }
+    });
+    
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) {
+        link.classList.add('active');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
